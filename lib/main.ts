@@ -578,17 +578,15 @@ export async function unviewConfession(
     throw `Failed to post log message!`;
   }
 
-  await postConfessionLog(record.id, { type: "undo" });
+  await postConfessionLog(record.id, { type: "undo", approved: old_approved ?? false });
 }
 
 export async function postConfessionLog(
   id: number,
   action: {
-    type: "view";
+    type: "view" | "undo";
     approved: boolean;
     meta?: boolean;
-  } | {
-    type: "undo";
   },
 ): Promise<void> {
   if (log_channel == null) return;
@@ -597,7 +595,7 @@ export async function postConfessionLog(
   if (action.type == "view") {
     actionText = action.approved ? action.meta ? "approved for meta" : "approved" : "rejected";
   } else if (action.type == "undo") {
-    actionText = "unapproved";
+    actionText = action.approved ? "unapproved" : "unrejected";
   }
 
   const logText = `Confession *#${id}* was *${actionText}*`;
