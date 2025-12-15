@@ -44,6 +44,7 @@ import {
   MarkdownText,
   PlainText,
   TextSection,
+	ActionConfirm,
 } from "./block_builder";
 
 export const api_config = {
@@ -309,7 +310,13 @@ const getStagingMessageBlocks = (id: number, text: string) => new Blocks([
     new ButtonAction(
         new PlainText(":office: Approve for meta"),
         "approve:meta",
-        "approve:meta"
+        "approve:meta",
+				new ActionConfirm(
+					new PlainText("Approve for meta"),
+					new PlainText(`Are you sure you want to approve this confession for meta?`),
+					new PlainText("Approve"),
+					new PlainText("Deny")
+				)
     ),
   ]),
 ]).render();
