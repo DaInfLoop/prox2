@@ -63,13 +63,36 @@ abstract class Action extends Renderable {
   }
 }
 
+export class ActionConfirm extends Renderable {
+  constructor(
+    private title: PlainText,
+    private text: PlainText,
+    private confirm: PlainText,
+    private deny: PlainText,
+    style: "primary" | "danger" = "primary"
+  ) {
+    super();
+  }
+
+  render(): any {
+    return {
+      title: this.title.render(),
+      text: this.text.render(),
+      confirm: this.confirm.render(),
+      deny: this.deny.render(),
+      style: this.style,
+    }
+  }
+}
+
 abstract class Accessory extends Renderable {}
 
 export class ExternalSelectAction extends Action implements Accessory {
   constructor(
     private placeholder: Text,
     private min_query_length: number,
-    action_id: string
+    action_id: string,
+    private confirm: ActionConfirm | null = null
   ) {
     super(action_id);
   }
@@ -80,6 +103,7 @@ export class ExternalSelectAction extends Action implements Accessory {
       placeholder: this.placeholder.render(),
       min_query_length: this.min_query_length,
       action_id: this.action_id,
+      confirm: this.confirm?.render(),
     };
   }
 }
@@ -143,7 +167,8 @@ export class ButtonAction extends Action {
   constructor(
     private text: PlainText,
     private value: string,
-    action_id: string
+    action_id: string,
+    private confirm: ActionConfirm | null = null
   ) {
     super(action_id);
   }
@@ -154,6 +179,7 @@ export class ButtonAction extends Action {
       text: this.text.render(),
       value: this.value,
       action_id: this.action_id,
+      confirm: this.confirm?.render(),
     };
   }
 }
