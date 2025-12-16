@@ -312,10 +312,10 @@ const getStagingMessageBlocks = (id: number, text: string) => new Blocks([
         "approve:meta",
         "approve:meta",
 				new ActionConfirm(
-				  new PlainText("Approve for meta"),
-				  new PlainText(`Are you sure you want to approve this confession for meta?`),
-				  new PlainText("Approve"),
-				  new PlainText("Deny")
+				    new PlainText("Approve for meta"),
+				    new PlainText(`Are you sure you want to approve this confession for meta?`),
+				    new PlainText("Approve"),
+				    new PlainText("Deny")
 				)
     ),
   ]),

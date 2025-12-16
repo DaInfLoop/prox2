@@ -69,7 +69,7 @@ export class ActionConfirm extends Renderable {
     private text: PlainText,
     private confirm: PlainText,
     private deny: PlainText,
-    style: "primary" | "danger" = "primary"
+    public style: "primary" | "danger" = "primary"
   ) {
     super();
   }
